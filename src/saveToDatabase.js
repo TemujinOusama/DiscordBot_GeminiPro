@@ -2,6 +2,9 @@ const History = require("../model/history");
 const { pacq } = require("./utils.js");
 
 async function saveToDatabase(message) {
+  if (message.content.startsWith("!!") && message.author.bot) {
+    return;
+  }
   const variable = pacq(message);
   const role = message.author.bot ? "model" : "user";
   const parts = message.author.bot ? message.content : variable.question;

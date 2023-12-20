@@ -1,5 +1,5 @@
 const History = require("../model/history");
-
+const { saveToDatabase } = require("./saveToDatabase.js");
 const { config } = require("dotenv");
 config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -51,7 +51,6 @@ async function getResponse(message, question) {
   });
 
   const msg = question;
-
   try {
     const result = await chat.sendMessage(msg);
     const response = await result.response;
@@ -69,7 +68,6 @@ async function getResponse(message, question) {
         "\n" +
         `**Category**:  *${geminiError[i].category}*\t**Probability**: *${geminiError[i].probability}*`;
     }
-    console.log(harm);
     return `***Safety concern detected***: ${harm}`;
   }
 }

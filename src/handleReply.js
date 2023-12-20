@@ -11,17 +11,17 @@ async function handleMessage(message) {
   } else if (!message.content.startsWith(variables.prefix)) {
     return;
   }
-  saveToDatabase(message);
   await message.channel.sendTyping();
 
-  if (variables.command == "ask" || message.author.bot) {
+  if (variables.command == "ask") {
     //check if the question is blank
     if (variables.question.trim() === "") {
       message.reply(
-        "Please add a question after the command : !<ask> [question]"
+        "!!Please add a question after the command : !ask [question]"
       );
       return;
     }
+    saveToDatabase(message);
     const response = await getResponse(message, variables.question);
 
     if (response.length > 1900) {
@@ -41,7 +41,7 @@ async function handleMessage(message) {
       message.reply(response);
     }
   } else {
-    message.channel.send("command not recognized...");
+    message.reply("!!command not recognized...");
   }
 }
 

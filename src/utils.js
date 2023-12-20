@@ -1,4 +1,7 @@
 function pacq(message) {
+  if (message.author.bot) {
+    return;
+  }
   const prefix = "!";
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
